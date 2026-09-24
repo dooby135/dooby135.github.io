@@ -1,0 +1,55 @@
+{%- comment -%}
+  Scrapbook 항목 카드 하나. 타임라인·종류별 보기가 같이 쓴다.
+  include.item: _data/scrapbook.yml 의 항목
+  include.label / include.icon: 종류 이름과 아이콘 (레이아웃에서 넘겨준다)
+{%- endcomment -%}
+
+{% assign item = include.item %}
+
+{%- comment -%} 썸네일: image 가 있으면 그것, 없으면 YouTube 영상에서 뽑는다 {%- endcomment -%}
+{% assign thumb = item.image %}
+{% if thumb == nil and item.type == 'video' and item.url %}
+  {% assign yt_id = nil %}
+  {% if item.url contains 'youtu.be/' %}
+    {% assign yt_id = item.url | split: 'youtu.be/' | last %}
+  {% elsif item.url contains 'watch?v=' %}
+    {% assign yt_id = item.url | split: 'watch?v=' | last %}
+  {% elsif item.url contains '/shorts/' %}
+    {% assign yt_id = item.url | split: '/shorts/' | last %}
+  {% endif %}
+  {% if yt_id %}
+    {% assign yt_id = yt_id | split: '?' | first | split: '&' | first %}
+    {% capture thumb %}https://i.ytimg.com/vi/{{ yt_id }}/mqdefault.jpg{% endcapture %}
+  {% endif %}
+{% endif %}
+
+<article class="sb-item sb-{{ item.type }}{% unless thumb %} sb-no-thumb{% endunless %}">
+  {% if thumb %}
+    <div class="sb-thumb">
+      {% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener" tabindex="-1">{% endif %}
+      <img src="{{ thumb | relative_url }}" alt="" loading="lazy">
+      {% if item.url %}</a>{% endif %}
+    </div>
+  {% endif %}
+
+  <div class="sb-body">
+    <div class="sb-meta">
+      <span class="sb-type"><i class="fa-fw {{ include.icon }}"></i>{{ include.label }}</span>
+      <time datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: '%Y.%m.%d' }}</time>
+    </div>
+
+    <div class="sb-title">
+      {% if item.url %}
+        <a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>
+      {% else %}
+        {{ item.title }}
+      {% endif %}
+    </div>
+
+    {% if item.by %}<div class="sb-by">{{ item.by }}</div>{% endif %}
+    {% if item.note %}<p class="sb-note">{{ item.note }}</p>{% endif %}
+    {% if item.post %}
+      <a class="sb-post" href="{{ item.post | relative_url }}"><i class="fa-fw fas fa-pen-nib"></i>글 보기</a>
+    {% endif %}
+  </div>
+</article>

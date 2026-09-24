@@ -1,0 +1,110 @@
+---
+layout: page
+# 보고 듣고 읽은 것들. 데이터는 _data/scrapbook.yml
+---
+
+{% assign types = 'video,movie,book,music' | split: ',' %}
+{% assign labels = '영상,영화,책,음악' | split: ',' %}
+{% assign icons = 'fas fa-play,fas fa-film,fas fa-book,fas fa-music' | split: ',' %}
+
+{%- comment -%} 알 수 없는 type 은 버린다 {%- endcomment -%}
+{% assign items = site.data.scrapbook | where_exp: 'i', 'types contains i.type' | sort: 'date' | reverse %}
+
+<div id="scrapbook" data-view="timeline">
+  {% if items.size == 0 %}
+    <p class="sb-empty">아직 모아둔 게 없어요.</p>
+  {% else %}
+    <div class="sb-toggle" role="group" aria-label="보기 방식">
+      <button type="button" data-view="timeline" aria-pressed="true">
+        <i class="fa-fw fas fa-stream"></i>타임라인
+      </button>
+      <button type="button" data-view="type" aria-pressed="false">
+        <i class="fa-fw fas fa-layer-group"></i>종류별
+      </button>
+    </div>
+
+    <!-- 타임라인: 월별로 묶는다 -->
+    <section class="sb-view sb-timeline">
+      {% for item in items %}
+        {% assign month = item.date | date: '%Y.%m' %}
+        {% if month != last_month %}
+          {% unless forloop.first %}</div>{% endunless %}
+          <h2 class="sb-month">{{ month }}</h2>
+          {{ '<div class="sb-line">' }}
+          {% assign last_month = month %}
+        {% endif %}
+        {% for t in types %}
+          {% if t == item.type %}
+            {% assign label = labels[forloop.index0] %}
+            {% assign icon = icons[forloop.index0] %}
+            {% include scrapbook-item.html item=item label=label icon=icon %}
+          {% endif %}
+        {% endfor %}
+        {% if forloop.last %}</div>{% endif %}
+      {% endfor %}
+    </section>
+
+    <!-- 종류별: 위키처럼 섹션으로 나눈다 -->
+    <section class="sb-view sb-by-type" hidden>
+      <nav class="sb-index">
+        {% for t in types %}
+          {% assign group = items | where: 'type', t %}
+          {% if group.size > 0 %}
+            <a href="#sb-{{ t }}" class="sb-chip sb-{{ t }}">
+              <i class="fa-fw {{ icons[forloop.index0] }}"></i>{{ labels[forloop.index0] }}
+              <span>{{ group.size }}</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </nav>
+
+      {% for t in types %}
+        {% assign group = items | where: 'type', t %}
+        {% if group.size > 0 %}
+          {% assign label = labels[forloop.index0] %}
+          {% assign icon = icons[forloop.index0] %}
+          <h2 id="sb-{{ t }}" class="sb-section sb-{{ t }}">
+            <i class="fa-fw {{ icon }}"></i>{{ label }}
+          </h2>
+          <div class="sb-grid">
+            {% for item in group %}
+              {% include scrapbook-item.html item=item label=label icon=icon %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </section>
+  {% endif %}
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('scrapbook');
+    var views = {
+      timeline: root.querySelector('.sb-timeline'),
+      type: root.querySelector('.sb-by-type')
+    };
+    var buttons = root.querySelectorAll('.sb-toggle button');
+    if (!views.timeline) return;
+
+    function show(view) {
+      if (!views[view]) view = 'timeline';
+      root.dataset.view = view;
+      for (var key in views) views[key].hidden = key !== view;
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.view === view));
+      });
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem('scrapbook-view'); } catch (e) {}
+    show(saved || 'timeline');
+
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        show(b.dataset.view);
+        try { localStorage.setItem('scrapbook-view', b.dataset.view); } catch (e) {}
+      });
+    });
+  })();
+</script>
