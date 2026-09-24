@@ -64,8 +64,9 @@
 
 ## 건드리지 않는 것
 
-- `_posts/playlist/` 빈 폴더(용도 불명, 빌드 영향 없음)
 - 기존 Archives 탭
+
+(`_posts/playlist/` 빈 폴더는 Scrapbook 이 대체하므로 삭제함)
 
 ## 검증
 
