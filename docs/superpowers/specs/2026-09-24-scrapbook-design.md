@@ -28,8 +28,8 @@
 
 ## 탭 — `_tabs/scrapbook.md`
 
-- `layout: scrapbook`, `icon: fas fa-paperclip`, `order: 4`
-- `about.md` 의 order 4 → 5 로 밀어 순서: Categories · Tags · Archives · Scrapbook · About
+- `layout: scrapbook`, `icon: fas fa-paperclip`, `order: 2`
+- 기존 탭 order 를 하나씩 밀어 순서: Categories(1) · Scrapbook(2) · Tags(3) · Archives(4) · About(5)
 - `_data/locales/en.yml` 의 `tabs:` 에 `scrapbook: Scrapbook` 추가 (현재 UI 가 en 폴백)
 - URL: `/scrapbook/`
 
