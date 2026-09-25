@@ -1,4 +1,4 @@
-# Scrapbook 탭(/scrapbook/)에 쌓이는 항목들. 순서는 상관없다 — 페이지에서 날짜순으로 정렬한다.
+# Scrapbook 탭(/scrapbook/)의 2026년 항목. 연도마다 파일 하나(_data/scrapbook/<연도>.yml). 순서는 상관없다 — 페이지에서 날짜순으로 정렬한다.
 # 필수: date, type(video | movie | book | music), title
 # 선택: by, url, image, note, post
 #
@@ -18,3 +18,4 @@
   title: "김민경&고아성과 도시여자대피소 뒷풀이 (feat. 학력 대결) [찰수다 ep.12]"
   by: 찰스엔터
   url: https://youtu.be/0WFSpZvvP_g
+  note: 내내 흐뭇해 하며 봤다. 이런 여성들의 관계성 너무 조우아 
