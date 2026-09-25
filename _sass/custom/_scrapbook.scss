@@ -272,9 +272,9 @@ html[data-mode='dark'] #scrapbook {
   }
 
   .sb-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-    gap: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
     padding-top: 0.5rem;
   }
 
@@ -308,10 +308,6 @@ html[data-mode='dark'] #scrapbook {
       > .sb-item::before {
         left: calc(-1.25rem - 6px);
       }
-    }
-
-    .sb-grid {
-      grid-template-columns: 1fr;
     }
   }
 }
