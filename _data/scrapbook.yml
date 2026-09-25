@@ -1,6 +1,17 @@
 # Scrapbook 탭(/scrapbook/)에 쌓이는 항목들. 순서는 상관없다 — 페이지에서 날짜순으로 정렬한다.
 # 필수: date, type(video | movie | book | music), title
 # 선택: by, url, image, note, post
+#
+# ↓ 복사용 풀 샘플 (주석 # 을 지우고 쓰기. 안 쓰는 줄은 통째로 삭제)
+#
+# - date: 2026-09-25                      # 본/들은/읽은 날
+#   type: movie                           # video | movie | book | music
+#   title: "헤어질 결심"                     # : 나 # 이 들어가면 꼭 따옴표
+#   by: 박찬욱                              # 채널 / 감독 / 저자 / 아티스트
+#   url: https://...                      # 제목이 이 링크로 연결됨
+#   image: /assets/img/scrapbook/decision.webp    # 포스터·표지 (YouTube 영상은 없어도 자동)
+#   note: 두 번째 보니까 대사가 더 잘 들린다.        # 한두 줄 감상
+#   post: /posts/slug/                    # 긴 감상 글이 있으면 그 주소
 
 - date: 2026-09-24
   type: video
