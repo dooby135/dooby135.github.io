@@ -46,6 +46,13 @@ html[data-mode='dark'] #scrapbook {
     color: var(--text-muted-color);
   }
 
+  /* 제목 아래 부제 (_tabs/scrapbook.md 의 description) */
+  .sb-lead {
+    margin: -1rem 0 1.5rem;
+    color: var(--text-muted-color);
+    font-size: 0.95rem;
+  }
+
   /* --- 보기 전환 --- */
 
   .sb-toggle {

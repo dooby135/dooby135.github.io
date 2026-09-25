@@ -17,6 +17,8 @@ layout: page
 {% assign items = items | where_exp: 'i', 'types contains i.type' | sort: 'date' | reverse %}
 
 <div id="scrapbook" data-view="timeline">
+  {% if page.description %}<p class="sb-lead">{{ page.description }}</p>{% endif %}
+
   {% if items.size == 0 %}
     <p class="sb-empty">아직 모아둔 게 없어요.</p>
   {% else %}
