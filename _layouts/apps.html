@@ -1,0 +1,82 @@
+---
+layout: page
+# 출시한 앱들. 데이터는 _data/apps.yml
+---
+
+{% assign platforms = 'ios,android,web,mac' | split: ',' %}
+{% assign platform_labels = 'iOS,Android,Web,macOS' | split: ',' %}
+
+{%- comment -%} 주석만 있는 빈 파일이면 site.data.apps 가 비어 있다 {%- endcomment -%}
+{% assign apps = site.data.apps %}
+{% if apps %}
+  {%- comment -%} 출시일이 없는(출시 예정) 앱이 맨 위, 그다음 최신순 {%- endcomment -%}
+  {% assign apps = apps | sort: 'released', 'first' | reverse %}
+{% else %}
+  {% assign apps = '' | split: '' %}
+{% endif %}
+
+<div id="apps">
+  {% if page.description %}<p class="ap-lead">{{ page.description }}</p>{% endif %}
+
+  {% if apps.size == 0 %}
+    <p class="ap-empty">곧 여기에 올라와요.</p>
+  {% else %}
+    <div class="ap-grid">
+      {% for app in apps %}
+        {% assign link = app.home | default: app.app_store | default: app.play_store | default: app.web %}
+        <article class="ap-card">
+          <div class="ap-head">
+            {% if app.icon %}
+              <img class="ap-icon" src="{{ app.icon | relative_url }}" alt="" loading="lazy">
+            {% else %}
+              <div class="ap-icon ap-icon-blank" aria-hidden="true">{{ app.name | slice: 0 }}</div>
+            {% endif %}
+
+            <div class="ap-title">
+              <h2 class="ap-name">
+                {% if link %}
+                  <a href="{{ link }}" target="_blank" rel="noopener">{{ app.name }}</a>
+                {% else %}
+                  {{ app.name }}
+                {% endif %}
+              </h2>
+              <div class="ap-meta">
+                {% if app.released %}
+                  <time datetime="{{ app.released | date: '%Y-%m-%d' }}">{{ app.released | date: '%Y.%m' }} 출시</time>
+                {% else %}
+                  <span class="ap-soon">출시 예정</span>
+                {% endif %}
+                {% for p in app.platforms %}
+                  {% for known in platforms %}
+                    {% if known == p %}<span class="ap-platform">{{ platform_labels[forloop.index0] }}</span>{% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          {% if app.tagline %}<p class="ap-tagline">{{ app.tagline }}</p>{% endif %}
+          {% if app.note %}<p class="ap-note">{{ app.note }}</p>{% endif %}
+
+          <div class="ap-links">
+            {% if app.home %}
+              <a href="{{ app.home | relative_url }}"><i class="fa-fw fas fa-home"></i>소개 페이지</a>
+            {% endif %}
+            {% if app.app_store %}
+              <a href="{{ app.app_store }}" target="_blank" rel="noopener"><i class="fa-fw fab fa-apple"></i>App Store</a>
+            {% endif %}
+            {% if app.play_store %}
+              <a href="{{ app.play_store }}" target="_blank" rel="noopener"><i class="fa-fw fab fa-google-play"></i>Google Play</a>
+            {% endif %}
+            {% if app.web %}
+              <a href="{{ app.web }}" target="_blank" rel="noopener"><i class="fa-fw fas fa-globe"></i>웹에서 열기</a>
+            {% endif %}
+            {% if app.post %}
+              <a class="ap-post" href="{{ app.post | relative_url }}"><i class="fa-fw fas fa-pen-nib"></i>개발기</a>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

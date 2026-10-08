@@ -1,0 +1,157 @@
+/* Apps 탭 (_layouts/apps.html).
+   앱 아이콘을 홈 화면처럼 둥근 사각형으로 보여주는 카드 목록. 색은 Chirpy 테마 변수를 쓴다. */
+
+@use '../abstracts/breakpoints' as bp;
+
+#apps {
+  margin-top: 1rem;
+
+  .ap-empty {
+    color: var(--text-muted-color);
+  }
+
+  /* 제목 아래 부제 (_tabs/apps.md 의 description) */
+  .ap-lead {
+    margin: -1rem 0 1.5rem;
+    color: var(--text-muted-color);
+    font-size: 0.95rem;
+  }
+
+  .ap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .ap-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 0.75rem;
+    background: var(--card-bg);
+  }
+
+  .ap-head {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+  }
+
+  .ap-icon {
+    flex: 0 0 4rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 22%; /* iOS 홈 화면 아이콘 비율 */
+    object-fit: cover;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+  }
+
+  /* 아이콘이 없으면 이름 첫 글자 */
+  .ap-icon-blank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--main-border-color);
+    color: var(--text-muted-color);
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  .ap-title {
+    min-width: 0;
+  }
+
+  .ap-name {
+    margin: 0;
+    font-size: 1.15rem;
+    line-height: 1.35;
+    word-break: keep-all; /* 한국어 단어 중간에서 끊지 않는다 */
+    overflow-wrap: break-word;
+
+    a {
+      color: inherit;
+      border-bottom: 0;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--link-color);
+      }
+    }
+  }
+
+  .ap-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--text-muted-color);
+
+    time {
+      margin-right: 0.2rem;
+    }
+  }
+
+  .ap-soon {
+    padding: 0 0.45rem;
+    border-radius: 999px;
+    background: var(--link-color);
+    color: var(--main-bg);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .ap-platform {
+    padding: 0 0.45rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 999px;
+    font-size: 0.75rem;
+  }
+
+  .ap-tagline {
+    margin: 1rem 0 0;
+    font-weight: 600;
+    color: var(--heading-color);
+  }
+
+  .ap-note {
+    margin: 0.4rem 0 0;
+    font-size: 0.95rem;
+    color: var(--text-muted-color);
+  }
+
+  /* 링크들은 카드 맨 아래에 붙인다 */
+  .ap-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
+
+    a {
+      padding: 0.25rem 0.75rem;
+      border: 1px solid var(--main-border-color);
+      border-radius: 999px;
+      color: var(--text-color);
+      font-size: 0.85rem;
+      text-decoration: none;
+
+      i {
+        margin-right: 0.2rem;
+      }
+
+      &:hover {
+        background: var(--text-color);
+        color: var(--main-bg);
+      }
+    }
+  }
+
+  @include bp.lt(bp.get(md)) {
+    .ap-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}

@@ -1,0 +1,24 @@
+# Apps 탭(/apps/)에 보여줄 출시한 앱들. 순서는 상관없다 — 페이지에서 출시일 최신순으로 정렬한다.
+# 필수: name
+# 선택: released (비워두면 '출시 예정'), home, icon, tagline, platforms, app_store, play_store, web, note, post
+#
+# ↓ 복사용 풀 샘플 (주석 # 을 지우고 쓰기. 안 쓰는 줄은 통째로 삭제)
+#
+# - name: "두비 타이머"                       # : 나 # 이 들어가면 꼭 따옴표
+#   released: 2026-09-01                  # 처음 출시한 날. 아직이면 줄을 지운다
+#   home: /apps/doobytimer/               # 앱 소개 페이지 (apps/<이름>/index.html)
+#   icon: /assets/img/apps/timer.png      # 앱 아이콘 (정사각형, 256px 이상 권장)
+#   tagline: 아이 양치 시간을 재주는 타이머        # 한 줄 소개
+#   platforms: [ios, android]             # ios | android | web | mac
+#   app_store: https://apps.apple.com/...
+#   play_store: https://play.google.com/store/apps/details?id=...
+#   web: https://...
+#   note: 아이가 양치를 너무 빨리 끝내서 만들었다.    # 만든 이유, 뒷이야기 한두 줄
+#   post: /posts/slug/                    # 개발기 글이 있으면 그 주소
+
+- name: 100 Days French
+  icon: /assets/img/apps/100daysfrench.png
+  tagline: 하루에 프랑스어 문장 하나, 100일 동안.
+  platforms: [ios]
+  home: /apps/100daysfrench/
+  note: 듣고 따라 말하는 iOS 앱.
