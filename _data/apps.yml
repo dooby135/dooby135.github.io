@@ -15,10 +15,3 @@
 #   web: https://...
 #   note: 아이가 양치를 너무 빨리 끝내서 만들었다.    # 만든 이유, 뒷이야기 한두 줄
 #   post: /posts/slug/                    # 개발기 글이 있으면 그 주소
-
-- name: 100 Days French
-  icon: /assets/img/apps/100daysfrench.png
-  tagline: 하루에 프랑스어 문장 하나, 100일 동안.
-  platforms: [ios]
-  home: /apps/100daysfrench/
-  note: 듣고 따라 말하는 iOS 앱.
